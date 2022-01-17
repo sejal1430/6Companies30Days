@@ -1,0 +1,25 @@
+class Solution {
+    public String gcdOfStrings(String str1, String str2) {
+        String ans = "";
+        int m = str1.length(), n = str2.length();
+        int g = m < n ? gcd(m,n) : gcd(n,m);
+        if (!str1.substring(0,g).equals(str2.substring(0,g))) return "";
+        ans = str1.substring(0,g);
+        String a = "", b = "";
+        int k = m/g, j = n/g;
+        while (k-- > 0){
+            a += ans;
+        }
+        while (j-- > 0){
+            b += ans;
+        }
+        if (!a.equals(str1) || !b.equals(str2)) return "";
+        return ans;
+    }
+    
+    public int gcd(int a, int b){
+        if (a == 0) return b;
+        if (b == 0) return a;
+        return gcd(b%a, a);
+    }
+}
