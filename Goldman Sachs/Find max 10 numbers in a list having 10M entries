@@ -1,0 +1,25 @@
+import java.util.*;
+public class Main {
+    public static void main(String args[]) {
+        Scanner s = new Scanner(System.in);
+        int k = 10, n = 10_000_000;
+        List<Integer> l = new ArrayList<>(n);
+        for (int i = 0; i < n; i++){
+            int a = s.nextInt();
+            l.add(a);
+        }
+        PriorityQueue<Integer> pq = new PriorityQueue<>((a,b)->(b-a));
+        for (int i = 0; i < k; i++){
+            pq.offer(l.get(i));
+        }
+        for (int i = k; i < n; i++){
+            if (l.get(i) > pq.peek()){
+                pq.poll();
+                pq.offer(l.get(i));
+            }
+        }
+        while(!pq.isEmpty()){
+            System.out.println(pq.poll());
+        }
+    }
+}
