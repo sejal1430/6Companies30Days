@@ -1,0 +1,55 @@
+import java.util.*;
+import java.lang.*;
+import java.io.*;
+class GFG
+{
+    public static void main(String[] args) throws IOException
+    {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int T = Integer.parseInt(br.readLine().trim());
+        while(T-->0)
+        {
+            String A = br.readLine().trim();
+            Solution ob = new Solution();
+            String ans = ob.FirstNonRepeating(A);
+            System.out.println(ans);
+        }
+    }
+}
+// } Driver Code Ends
+
+
+class Solution
+{
+    public String FirstNonRepeating(String A)
+    {
+        int n = A.length();
+        StringBuilder sb = new StringBuilder();
+        Map<Character, Integer> map = new HashMap<>();
+        Set<Character> charFound = new HashSet<>();
+        Queue<Character> q = new LinkedList<>();
+        for (char c: A.toCharArray()){
+            if (!charFound.contains(c)){
+                q.add(c);
+            }
+            if (map.get(c) == null){
+                map.put(c, 1);
+            } else {
+                map.put(c, map.get(c)+1);
+            }
+            boolean found = false;
+            while (!q.isEmpty()){
+                if (map.get(q.peek()) == 1) {
+                    found = true;
+                    sb.append(q.peek());
+                    break;
+                } else {
+                    q.remove();
+                    charFound.add(q.peek());
+                }
+            }
+            if (!found) sb.append('#');
+        }
+        return sb.toString();
+    }
+}
