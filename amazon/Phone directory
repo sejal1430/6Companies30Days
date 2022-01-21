@@ -1,0 +1,60 @@
+//Initial Template for Java
+
+import java.io.*;
+import java.util.*;
+
+class GFG{
+    public static void main(String args[])throws IOException
+    {
+        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+        int t = Integer.parseInt(in.readLine());
+        while(t-- > 0){
+            int n = Integer.parseInt(in.readLine());
+            String contact[] = in.readLine().trim().split("\\s+");
+            String s = in.readLine();
+            
+            Solution ob = new Solution();
+            ArrayList<ArrayList<String>> ans = ob.displayContacts(n, contact, s);
+            for(int i = 0;i < ans.size();i++){
+                for(int j = 0;j < ans.get(i).size();j++)
+                    System.out.print(ans.get(i).get(j) + " ");
+                System.out.println();
+            }
+        }
+    }
+}// } Driver Code Ends
+
+
+//User function Template for Java
+
+class Solution{
+    static ArrayList<ArrayList<String>> displayContacts(int n, 
+                                        String contact[], String s)
+    {
+        ArrayList<ArrayList<String>> ans = new ArrayList<>();
+        Map<String, ArrayList<Boolean>> map = new TreeMap<>();
+        // Arrays.sort(contact);
+        for(String con: contact){
+            if (map.containsKey(con)) continue;
+            ArrayList<Boolean> l = new ArrayList<>();
+            for (int i = 1; i <= s.length(); i++){
+                if (i > con.length()) l.add(false);
+                else {
+                    if (con.substring(0,i).equals(s.substring(0,i))){
+                        l.add(true);
+                    } else l.add(false);
+                }
+            }
+            map.put(con, l);
+        }
+        for (int i = 1; i <= s.length(); i++){
+            ArrayList<String> l = new ArrayList<>();
+            for (Map.Entry<String, ArrayList<Boolean>> entry: map.entrySet()){
+                if (entry.getValue().get(i-1)) l.add(entry.getKey());
+            }
+            if (l.isEmpty()) l.add("0");
+            ans.add(new ArrayList<String>(l));
+        }
+        return ans;
+    }
+}
