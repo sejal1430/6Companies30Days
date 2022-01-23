@@ -1,0 +1,58 @@
+class GFG
+{
+    public static void main(String args[])throws IOException
+    {
+        Scanner sc = new Scanner(System.in);
+        int t = sc.nextInt();
+        
+        while(t-- > 0)
+        {
+            int r = sc.nextInt();
+            int c = sc.nextInt();
+            
+            int matrix[][] = new int[r][c];
+            
+            for(int i = 0; i < r; i++)
+            {
+                for(int j = 0; j < c; j++)
+                 matrix[i][j] = sc.nextInt();
+            }
+            Solution ob = new Solution();
+            ArrayList<Integer> ans = ob.spirallyTraverse(matrix, r, c);
+            for (Integer val: ans) 
+                System.out.print(val+" "); 
+            System.out.println();
+        }
+    }
+}// } Driver Code Ends
+
+
+class Solution
+{
+    //Function to return a list of integers denoting spiral traversal of matrix.
+    static ArrayList<Integer> spirallyTraverse(int matrix[][], int r, int c)
+    {
+        ArrayList<Integer> l = new ArrayList<>();
+        int tr = 0, lc = 0, br = r-1, rc = c-1;
+        while (tr <= br && lc <= rc){
+            for (int i = lc; i <= rc; i++){
+                l.add(matrix[tr][i]);
+            }
+            for (int i = tr+1; i <= br; i++){
+                l.add(matrix[i][rc]);
+            }
+            if (tr < br && lc < rc){
+                for (int i = rc-1; i > lc; i--){
+                l.add(matrix[br][i]);
+            }
+            for (int i = br; i > tr; i--){
+                l.add(matrix[i][lc]);
+            }}
+            tr++;
+            lc++;
+            rc--;
+            br--;
+        }
+        return l;
+    }
+}
